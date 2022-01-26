@@ -19,7 +19,20 @@ public class MyMain {
 
     // Tail recursive method:
     public static boolean binarySearchTR(int[] arr, int num, int lowerBound, int upperBound) {
-        // YOUR CODE HERE
+        if (upperBound >= lowerBound && lowerBound <= arr.length - 1) {
+
+            int mid = lowerBound + (upperBound - lowerBound) / 2;
+
+            if (arr[mid] == num)
+                return true;
+
+            if (arr[mid] > num)
+                return binarySearchTR(arr, num, lowerBound, mid - 1);
+
+
+            return binarySearchTR(arr, num, mid+1, upperBound);
+        }
+
         return false;
     }
 
@@ -68,7 +81,72 @@ public class MyMain {
     // Then we need to copy the rest of the array
 
     public static int[] merge(int[] arr1, int[] arr2) {
+        /*int[] arr3=new int[arr1.length+arr2.length];
         // YOUR CODE HERE
-        return null;
+        int count1=0;
+        int count2=0;
+        int count3=0;
+        while(count3<arr1.length+arr2.length){
+            if(count2==arr2.length-1){
+                arr3[count3]=arr1[count1];
+                count3++;
+                count1++;
+            }
+            else if (count1==arr1.length-1){
+                arr3[count3]=arr2[count2];
+                count3++;
+                count2++;
+            }
+            else if((arr1[count1]<arr2[count2])||(count2==arr2.length-1)){
+                arr3[count3]=arr1[count1];
+                count3++;
+                count1++;
+            }
+            else if(arr1[count1]>arr2[count2]||count1==arr1.length-1){
+                arr3[count3]=arr2[count2];
+                count3++;
+                count2++;
+            }
+            else{
+                arr3[count3]=arr1[count1];
+                count3++;
+                count1++;
+            }
+        }
+        return null;*/
+        int[] arr3 = new int[arr1.length + arr2.length];
+        int idx1 = 0;
+        int idx2 = 0;
+        int outputIdx = 0;
+
+        while (idx1 < arr1.length && idx2 < arr2.length) {
+            if (arr1[idx1] < arr2[idx2]) {
+                arr3[outputIdx] = arr1[idx1];
+                idx1++;
+            } else {
+                arr3[outputIdx] = arr2[idx2];
+                idx2++;
+            }
+            outputIdx++;
+        }
+
+        while (idx1 < arr1.length) {
+            arr3[outputIdx] = arr1[idx1];
+            idx1++;
+            outputIdx++;
+        }
+
+        while (idx2 < arr2.length) {
+            arr3[outputIdx] = arr2[idx2];
+            idx2++;
+            outputIdx++;
+        }
+
+        return arr3;
+    }
+    public static void main(String[] args){
+        int[] arr3 = {-4, 5, 7, 8};
+        int[] arr4 = {-5, -1, 2, 3};
+        merge(arr3, arr4);
     }
 }
